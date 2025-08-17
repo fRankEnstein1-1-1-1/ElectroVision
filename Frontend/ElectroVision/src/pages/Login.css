@@ -118,23 +118,14 @@ input::placeholder {
   box-shadow: 0 6px 18px rgba(36, 56, 109, 0.16);
 }
 
-.demo-box {
-  margin-top: 1.7rem;
-  background: rgba(255, 255, 255, 0.06);
-  padding: 1.1rem;
-  border-radius: 16px;
-  font-size: 1rem;
-  text-align: left;
+Link{
+text-decoration: none;
 }
 
-.demo-box h3 {
-  color: white;
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-}
-
-.demo-pass {
-  color: rgba(255, 255, 255, 0.48);
-  font-size: 1rem;
+.link{
+  width: 100%;
+  display: flex;
+  margin: 5px;
+  justify-content: center;
+  text-decoration: none;
 }

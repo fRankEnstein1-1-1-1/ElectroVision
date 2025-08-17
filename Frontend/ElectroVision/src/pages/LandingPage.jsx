@@ -102,7 +102,7 @@ const LandingPage = () => {
             Advanced Demand Analytics Platform
           </div>
           <h2 className="hero-title">
-            Intelligent Energy{" "}
+            Intelligent Energy
             <span className="hero-gradient">Forecasting</span>
           </h2>
           <p className="hero-subtext">

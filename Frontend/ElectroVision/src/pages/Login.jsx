@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
 import { Zap, Mail, Lock } from 'lucide-react';
 import './Login.css';
+import { useNavigate ,Link} from 'react-router-dom';
 
-const Login = ({ onLogin }) => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
+const Login = () => {
+const navigate = useNavigate();
+const [email,setemail] = useState("");
+const [password,setpassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const user = {
-      id: Math.random().toString(36).slice(2),
-      name: 'Demo User',
-      email: formData.email,
-      role: 'user',
-      approved: true
-    };
-    onLogin(user);
+ 
   };
 
   return (
@@ -39,8 +32,8 @@ const Login = ({ onLogin }) => {
             <input
               type="email"
               placeholder="Email Address"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+             value={email}
+             onChange={(e)=>{setemail(e.target.value)}}
               required
             />
           </div>
@@ -49,24 +42,17 @@ const Login = ({ onLogin }) => {
             <input
               type="password"
               placeholder="Password"
-              value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+             value={password}
+             onChange={(e)=>{setpassword(e.target.value)}}
               required
             />
           </div>
+          <div className="link">
+          <Link to="/signup" style={{textDecoration:"none"}}>New user ?</Link></div>
           <button type="submit" className="btn-submit">
-            Sign In
+            Log In
           </button>
         </form>
-
-        {/* Demo Accounts */}
-        <div className="demo-box">
-          <h3>Demo Accounts:</h3>
-          <p>Government: gov@demo.com</p>
-          <p>Policy Maker: policy@demo.com</p>
-          <p>User: user@demo.com</p>
-          <p>Password: demo123</p>
-        </div>
       </div>
     </div>
   );
