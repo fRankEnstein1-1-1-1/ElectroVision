@@ -21,7 +21,10 @@ const userSchema = new mongoose.Schema(
         ,
         hasAcess:{
             type:Boolean,
-        }
+        },
+        reqid:{
+            type:Number,
+        },
     }
 );
 
