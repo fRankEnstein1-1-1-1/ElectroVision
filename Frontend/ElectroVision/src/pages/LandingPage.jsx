@@ -24,9 +24,11 @@ import {
 const LandingPage = () => {
   const navigate = useNavigate();
 
-  const gotoLogin = () => {
-    navigate("/login");
-  };
+  const gotoLogin = (x) => {
+    console.log(`x ka value hai ${x}`)
+    navigate("/login",{state:{role:x}});
+  }
+  ;
   const userTypes = [
     {
       id: "government",
@@ -143,7 +145,7 @@ const LandingPage = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="role-feature-list">
-                      {type.features.map((feature, index) => (
+                      {type.features.map((feature, index) => (        //access array then use map
                         <div key={index} className="role-feature">
                           <div className="feature-dot" />
                           {feature}
@@ -153,7 +155,7 @@ const LandingPage = () => {
                     <Button
                       className="role-button"
                       variant="outline"
-                      onClick={gotoLogin}
+                      onClick={()=>{gotoLogin(type.title)}}
                     >
                       Access {type.title} Portal
                       <BarChart3 className="role-button-icon" />

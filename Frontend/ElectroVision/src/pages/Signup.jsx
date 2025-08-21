@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Zap, User, Mail, Lock, Building } from 'lucide-react';
+import { useState } from 'react';
+import { Zap, User, Mail, Lock } from 'lucide-react';
 import './Signup.css';
 import { Link,useNavigate } from 'react-router-dom';
 

@@ -3,6 +3,7 @@ import dotenv  from 'dotenv';
 import { mongoose } from 'mongoose';
 import cors from 'cors';
 import User from './db/user_model.js';
+import appRouter from './routes/index_routes.js'; 
 
 dotenv.config();
 
@@ -14,6 +15,8 @@ app.use(express.json());
 mongoose.connect(process.env.MONGODB_URL)
 .then(()=>{console.log("MongoDB Connected Suceesfully !")})
 .catch((error)=>{console.log('Cant connect to MobgDB',error)});
+
+app.use('api/v1',appRouter);
 
 app.listen(process.env.PORT,()=>{
 console.log("Server is Running!")
