@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Zap, Mail, Lock } from 'lucide-react';
 import './Login.css';
+import axios from "axios";
 import { useNavigate ,Link, useLocation} from 'react-router-dom';
 
 const Login = () => {
@@ -16,6 +17,15 @@ const [password,setpassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    axios.post('http://localhost:5000/api/v1/user/login',{email,password,reqid})
+      .then(()=>{
+        alert("Login sucessfull !")
+        navigate('./Home')
+      })
+      .catch((error)=>{
+        alert("Cant Log You In ");
+        console.log(error);
+      })
  
   };
 

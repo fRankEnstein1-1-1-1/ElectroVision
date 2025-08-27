@@ -1,8 +1,14 @@
-import User from '../db/user_model'
+import User from '../db/user_model.js'
 const userlogin = (req,res)=>{
     try {
-        const {email,password} = req.body;
-const existingUser = User.find({email,password})
+        const {email,password,reqid} = req.body;
+        let existingUser;
+        if(!reqid){
+             existingUser = User.findOne({email,password})
+        }
+        else{
+                existingUser = User.findOne({email,password,reqid})
+        }
 if(!existingUser){
     return res.status(200).json({message:"Sign in first"})
 }

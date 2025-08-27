@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from "axios";
 import { Zap, User, Mail, Lock } from 'lucide-react';
 import './Signup.css';
 import { Link,useNavigate } from 'react-router-dom';
@@ -16,6 +17,13 @@ const navigate = useNavigate();
     if(!fullname || !email ||!password){
       alert("Enter the details!")
     }
+    axios.post('http://localhost:5000/api/v1/user/sign',{fullname,email,password})
+    .then(()=>{alert("User Signed Sucessfully !")
+      navigate('./Home')
+    })
+    .catch((error)=>{alert("Couldnt sign you in !")
+      console.log(error)
+    })
   };
 
 

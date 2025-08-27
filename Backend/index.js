@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGODB_URL)
 .then(()=>{console.log("MongoDB Connected Suceesfully !")})
 .catch((error)=>{console.log('Cant connect to MobgDB',error)});
 
-app.use('api/v1',appRouter);
+app.use('/api/v1',appRouter);
 
 app.listen(process.env.PORT,()=>{
 console.log("Server is Running!")
