@@ -1,8 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LandingPage.css";
-
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import {
@@ -11,7 +9,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
+} from "../components/ui/Card";
 import {
   Zap,
   BarChart3,
@@ -20,15 +18,49 @@ import {
   TrendingUp,
   Shield,
 } from "lucide-react";
+import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 
 const LandingPage = () => {
   const navigate = useNavigate();
 
+  // 1. Initialize State from LocalStorage
+  // We check if a value exists in browser storage. If not, default to "light".
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "light";
+  });
+
+  // 2. Toggle Function
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+  };
+
+  // 3. Effect to Apply Theme & Save to LocalStorage
+  // This runs whenever 'theme' changes AND when the page first loads
+  useEffect(() => {
+    const root = document.documentElement;
+
+    // Set the data attribute (for your CSS variables)
+    root.setAttribute("data-theme", theme);
+
+    // Set the class (for Tailwind/Shadcn)
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+
+    // Save to LocalStorage so it persists on reload
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   const gotoLogin = (x) => {
-    console.log(`x ka value hai ${x}`)
-    navigate("/login",{state:{role:x}});
-  }
-  ;
+    // console.log(`x ka value hai ${x}`);
+    // navigate("/login", { state: { role: x } });
+    console.log(`Selected role: ${x}`);
+    navigate("/Home", { state: { role: x } });
+  };
+
   const userTypes = [
     {
       id: "government",
@@ -93,6 +125,19 @@ const LandingPage = () => {
               </p>
             </div>
           </div>
+
+          {/* Theme Toggle Button */}
+          <button
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            {theme === "light" ? (
+              <MdOutlineDarkMode className="theme-icon" size={22} />
+            ) : (
+              <MdOutlineLightMode className="theme-icon" size={22} />
+            )}
+          </button>
         </div>
       </header>
 
@@ -103,10 +148,15 @@ const LandingPage = () => {
             <TrendingUp className="hero-badge-icon" />
             Advanced Demand Analytics Platform
           </div>
+
           <h2 className="hero-title">
-            Intelligent Energy
-            <span className="hero-gradient">Forecasting</span>
+            <span>Intelligent Energy</span>
+            <span className="hero-gradient-wrapper">
+              &nbsp;
+              <span className="hero-gradient">Forecasting</span>
+            </span>
           </h2>
+
           <p className="hero-subtext">
             Empowering data-driven decisions with real-time electricity demand
             predictions, scenario modeling, and comprehensive energy analytics.
@@ -127,7 +177,7 @@ const LandingPage = () => {
             {userTypes.map((type) => {
               const IconComponent = type.icon;
               return (
-                <Card key={type.id} className="role-card">
+                <Card key={type.id} className={`role-card ${type.id}`}>
                   <div className={`role-card-topbar ${type.colorClass}`} />
                   <CardHeader>
                     <div className="role-card-header">
@@ -145,21 +195,23 @@ const LandingPage = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="role-feature-list">
-                      {type.features.map((feature, index) => (        //access array then use map
+                      {type.features.map((feature, index) => (
                         <div key={index} className="role-feature">
                           <div className="feature-dot" />
                           {feature}
                         </div>
                       ))}
                     </div>
-                    <Button
-                      className="role-button"
-                      variant="outline"
-                      onClick={()=>{gotoLogin(type.title)}}
+                    <button
+                      className="btn outline"
+                      style={{ width: "100%" }}
+                      onClick={() => {
+                        gotoLogin(type.title);
+                      }}
                     >
                       Access {type.title} Portal
-                      <BarChart3 className="role-button-icon" />
-                    </Button>
+                      <BarChart3 size={18} />
+                    </button>
                   </CardContent>
                 </Card>
               );
