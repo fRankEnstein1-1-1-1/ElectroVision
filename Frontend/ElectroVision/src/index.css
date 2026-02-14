@@ -1,0 +1,97 @@
+/* src/index.css - GLOBAL THEME VARIABLES */
+
+:root {
+  /* --- LIGHT THEME (Default) --- */
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --secondary: #10b981;
+  --accent: #f59e0b;
+  
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+  
+  --bg-color: #f8fafc;
+  --bg-pattern: #cbd5e1;
+  
+  /* Glassmorphism Variables */
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 
+                  0 2px 4px -1px rgba(0, 0, 0, 0.03),
+                  inset 0 0 0 1px rgba(255,255,255,0.5);
+                  
+  --input-bg: rgba(255, 255, 255, 0.5);
+}
+
+/* --- DARK THEME OVERRIDES --- */
+[data-theme="dark"] {
+  --primary: #60a5fa; 
+  --primary-dark: #3b82f6;
+  --secondary: #34d399;
+  --accent: #fbbf24;
+  
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8; 
+  --text-light: #64748b;
+  
+  --bg-color: #020617; 
+  --bg-pattern: #1e293b; 
+  
+  --glass-bg: rgba(15, 23, 42, 0.6); 
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 4px 20px -1px rgba(0, 0, 0, 0.5), 
+                  inset 0 0 0 1px rgba(255,255,255,0.05);
+                  
+  --input-bg: rgba(0, 0, 0, 0.2);
+}
+
+/* --- GLOBAL DEFAULTS --- */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-color);
+  background-image: radial-gradient(var(--bg-pattern) 1px, transparent 1px);
+  background-size: 32px 32px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+/* Background Blobs (Global) */
+body::before, body::after {
+  content: '';
+  position: absolute;
+  width: 50vw;
+  height: 50vw;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.15;
+  z-index: -1;
+  animation: floatBackground 20s infinite alternate;
+  pointer-events: none; /* Important: lets you click things under blobs */
+}
+
+body::before {
+  background: var(--primary);
+  top: -15%;
+  left: -15%;
+}
+
+body::after {
+  background: var(--secondary);
+  bottom: 0%;
+  right: -15%;
+  animation-delay: -10s;
+}
+
+@keyframes floatBackground {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
