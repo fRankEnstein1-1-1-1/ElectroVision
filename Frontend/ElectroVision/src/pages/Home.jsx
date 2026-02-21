@@ -18,14 +18,6 @@ const Home = () => {
 
   return (
     <div>
-      {/* Optional: Back Button (For testing navigation) */}
-      <div className="fixed top-4 right-4 z-50">
-        <Link to="/" className="px-4 py-2 bg-gray-800 text-white rounded-lg text-sm font-medium hover:bg-gray-700 transition flex items-center gap-2">
-          <ArrowLeft size={16}/> Back to Landing
-        </Link>
-      </div>
-
-      {/* 2. Render the correct dashboard based on the role */}
       {role === "Government Official" && <GovernmentDashboard />}
       {role === "Policy Maker" && <PolicyDashboard />}
       {role === "Public User" && <PublicDashboard />}

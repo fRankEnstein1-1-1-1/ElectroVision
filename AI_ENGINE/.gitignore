@@ -1,0 +1,5 @@
+venv
+./.env
+./Model_LongTerm_v2.json
+.//Model_LongTerm.pkl
+./Model_ShortTerm.pkl
