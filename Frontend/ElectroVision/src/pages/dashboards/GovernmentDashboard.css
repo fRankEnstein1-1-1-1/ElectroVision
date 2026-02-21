@@ -1,0 +1,497 @@
+/* src/pages/dashboards/GovernmentDashboard.css */
+
+/* --- LAYOUT CONTAINER --- */
+.dashboard-container {
+  padding: 2rem;
+  min-height: 100vh;
+  color: var(--text-main);
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* --- HEADER --- */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon-box {
+  background: var(--primary); /* Uses theme primary */
+  padding: 0.75rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-header h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.dashboard-header p {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-family: monospace;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+
+.header-badge {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-main);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--secondary); /* Uses theme secondary (Green) */
+  border-radius: 50%;
+  margin-right: 8px;
+  box-shadow: 0 0 10px var(--secondary);
+}
+
+/* --- GRID SYSTEM --- */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.main-content-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 1024px) {
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .main-content-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .metrics-grid { grid-template-columns: 1fr; }
+}
+
+/* --- CARDS (Glassmorphism) --- */
+.stat-card, .control-panel, .chart-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary);
+}
+
+.stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.5rem;
+}
+
+.stat-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  font-family: monospace;
+  margin-bottom: 0.25rem;
+  /* Color is applied inline in JSX, but falls back to text-main */
+  color: var(--text-main);
+}
+
+.stat-sub {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* --- CONTROLS --- */
+.panel-title {
+  color: var(--text-main);
+}
+
+.slider-label {
+  color: var(--text-muted);
+}
+
+.slider-val {
+  color: var(--primary);
+}
+
+.custom-range {
+  width: 100%;
+  height: 4px;
+  background: var(--glass-border); /* Track color */
+  border-radius: 2px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.custom-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: var(--primary); /* Thumb color */
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--primary);
+}
+
+.run-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  margin-top: 1rem;
+}
+
+/* --- CHART --- */
+.chart-header {
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.chart-legend {
+  color: var(--text-muted);
+}
+
+.dot.blue { background: var(--primary); }
+.dot.purple { background: var(--accent); }
+/* ─────────────────────────────────────────────────────────────────────────────
+   TIME RANGE DROPDOWN + CUSTOM YEAR SLIDER  —  NEW additions only.
+   Paste this at the bottom of GovernmentDashboard.css
+───────────────────────────────────────────────────────────────────────────── */
+
+/* Chart header flex row so title and dropdown sit side-by-side */
+.chart-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+/* ── DROPDOWN WRAPPER ── */
+.tr-dropdown-wrap {
+  position: relative;
+  z-index: 50;
+}
+
+/* Trigger button — matches glass card aesthetic */
+.tr-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-family: monospace;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.tr-dropdown-trigger:hover {
+  border-color: var(--primary);
+  color: var(--text-main);
+  background: color-mix(in srgb, var(--primary) 8%, var(--glass-bg));
+}
+
+.tr-cal-icon {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.tr-chevron {
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.tr-chevron.open {
+  transform: rotate(180deg);
+}
+
+/* Dropdown menu */
+.tr-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 150px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  list-style: none;
+  padding: 4px;
+  margin: 0;
+  animation: tr-menu-in 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes tr-menu-in {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+.tr-dropdown-item {
+  padding: 9px 14px;
+  border-radius: 7px;
+  font-size: 0.78rem;
+  font-family: monospace;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.tr-dropdown-item:hover {
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  color: var(--text-main);
+}
+.tr-dropdown-item.active {
+  background: color-mix(in srgb, var(--primary) 18%, transparent);
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* ── CUSTOM YEAR SLIDER PANEL ── */
+.tr-year-slider-wrap {
+  background: color-mix(in srgb, var(--primary) 6%, var(--glass-bg));
+  border: 1px solid color-mix(in srgb, var(--primary) 25%, var(--glass-border));
+  border-radius: 10px;
+  padding: 14px 16px 10px;
+  margin-bottom: 0.75rem;
+  animation: tr-menu-in 0.2s ease;
+}
+
+.tr-year-slider-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tr-year-label-left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.68rem;
+  font-family: monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.tr-year-value {
+  font-size: 0.75rem;
+  font-family: monospace;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.05em;
+}
+
+.tr-year-track-wrap {
+  position: relative;
+}
+
+/* The actual year range slider */
+.tr-year-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 100px;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  background:
+    linear-gradient(
+      to right,
+      var(--primary) 0%,
+      var(--primary) var(--yr-val, 0%),
+      var(--glass-border) var(--yr-val, 0%),
+      var(--glass-border) 100%
+    );
+  transition: background 0.08s linear;
+  margin-bottom: 6px;
+}
+
+.tr-year-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 100px;
+}
+
+.tr-year-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--primary) 25%, transparent),
+    0 2px 6px rgba(0, 0, 0, 0.4);
+  cursor: grab;
+  margin-top: -6px;
+  transition: box-shadow 0.18s, transform 0.15s;
+}
+.tr-year-slider:hover::-webkit-slider-thumb {
+  box-shadow:
+    0 0 0 5px color-mix(in srgb, var(--primary) 30%, transparent),
+    0 2px 10px color-mix(in srgb, var(--primary) 50%, transparent);
+}
+.tr-year-slider:active::-webkit-slider-thumb {
+  cursor: grabbing;
+  transform: scale(1.15);
+}
+
+.tr-year-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  cursor: grab;
+}
+.tr-year-slider::-moz-range-progress {
+  height: 4px;
+  border-radius: 100px;
+  background: var(--primary);
+}
+.tr-year-slider::-moz-range-track {
+  height: 4px;
+  border-radius: 100px;
+  background: var(--glass-border);
+}
+
+/* Tick labels below slider */
+.tr-year-ticks {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2px;
+  margin-top: 4px;
+}
+.tr-year-tick {
+  font-size: 0.6rem;
+  font-family: monospace;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  opacity: 0.6;
+}
+
+/* ── CHART LOADING STATE ── */
+.chart-loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-family: monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  opacity: 0.6;
+  animation: chart-blink 1.4s ease-in-out infinite;
+}
+@keyframes chart-blink {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 0.2; }
+}
+
+/* ── SINGLE-ITEM LEGEND (actual line removed) ── */
+.legend-item .dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.dot.purple { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
+
+/* ── NEXT-YEAR MODEL INFERENCE BADGE ── */
+.tr-model-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--accent, #8b5cf6);
+  background: color-mix(in srgb, var(--accent, #8b5cf6) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent, #8b5cf6) 25%, transparent);
+  border-radius: 8px;
+  padding: 7px 14px;
+  margin-bottom: 0.5rem;
+  animation: tr-menu-in 0.2s ease;
+}
+
+.tr-model-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent, #8b5cf6);
+  box-shadow: 0 0 8px var(--accent, #8b5cf6);
+  flex-shrink: 0;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ── CHART UNIT INFO BAR ── */
+.chart-unit-info {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-family: monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  background: color-mix(in srgb, var(--primary) 5%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary) 15%, transparent);
+  border-radius: 7px;
+  padding: 6px 12px;
+  margin-bottom: 12px;
+}
+.chart-unit-info b {
+  color: var(--primary);
+  font-weight: 700;
+}
+.chart-unit-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+}

@@ -1,0 +1,49 @@
+# ==========================================
+# 🧠 AI_ENGINE CUSTOM RULES
+# ==========================================
+# Ignore everything inside the AI_ENGINE folder...
+AI_ENGINE/*
+# ...EXCEPT the server.py file
+!AI_ENGINE/server.py
+
+# ==========================================
+# 🌐 BACKEND (Node.js)
+# ==========================================
+Backend/node_modules/
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# ==========================================
+# 🌍 ENVIRONMENTS & SECRETS
+# ==========================================
+# This will ignore .env files in BOTH Backend and AI_ENGINE
+.env
+.env.*
+.venv
+venv/
+ENV/
+
+# ==========================================
+# 📊 MACHINE LEARNING MODELS (Just in case)
+# ==========================================
+*.pkl
+*.json
+# (Note: package.json and package-lock.json in Backend won't be ignored 
+# because they are already tracked by Git, but ML models will be caught)
+
+# ==========================================
+# 🐍 PYTHON CORE & CACHE
+# ==========================================
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# ==========================================
+# 💻 IDEs & OS HIDDEN FILES
+# ==========================================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
