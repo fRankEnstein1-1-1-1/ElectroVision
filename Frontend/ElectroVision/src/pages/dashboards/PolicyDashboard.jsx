@@ -69,7 +69,7 @@ const PolicyDashboard = () => {
           body: JSON.stringify({ ...params, city_data: cityData }),
         });
         const json = await res.json();
-        if (json.success) setResult(json.data);
+        if (json.success) setResult(json);
       } catch (e) {
         console.error(e);
       }
