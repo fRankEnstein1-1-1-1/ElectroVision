@@ -101,30 +101,6 @@ For general public / consumers.
 
 ---
 
-## Setup
-
-```bash
-# Clone the repo
-git clone https://github.com/fRankEnstein1-1-1-1/ElectroVision.git
-cd ElectroVision
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run data pipeline (fetches and cleans data)
-python pipeline/fetch_data.py
-
-# Train the model
-python model/train.py
-
-# Launch dashboards
-python app/government.py   # Government dashboard
-python app/policy.py       # Policy maker dashboard
-python app/user.py         # End user dashboard
-```
-
----
-
 ## Results Summary
 
 The model successfully captures both long-term seasonal demand trends (summer cooling loads, winter heating) and short-term spikes (industrial peak hours, festivals). The 15-minute granularity from WRLDC data was critical — hourly data missed intra-hour demand spikes that could cause localised grid stress.
@@ -136,9 +112,3 @@ XGBoost's speed advantage (7s vs 532s for LSTM) matters in production: the model
 ## Team
 
 Built by Jishnu Nair as part of the BE (Artificial Intelligence) curriculum at Don Bosco Institute of Technology, Mumbai.
-
----
-
-## License
-
-MIT
